@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors({
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
-    origin: ['http://localhost:3000']
+    origin: ['https://booksellingstore.netlify.app']
 }));
 
 // app.use((req, res, next) => {
