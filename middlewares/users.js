@@ -53,7 +53,9 @@ async function userLogin(req, res) {
             // res.cookie("token", token, {httpOnly: true, maxAge: 1000*60*60*24});
             return res.status(201).json({ userData: user, token: token });
         } else {
-            return res.status(401).json({ error: "User credentials not matched" });
+            return res
+                .status(401)
+                .json({ error: "User credentials not matched" });
         }
     } catch (err) {
         console.log(err);
@@ -108,7 +110,7 @@ async function userRegister(req, res) {
                                     <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
                                         <tr>
                                             <td align="center" style="padding: 15px; background-color: #26a69a;">
-                                                <a href="http://localhost:3000/user/verify/${token}" style="display: inline-block; padding: 15px 30px; background-color: #26a69a; color: #ffffff; text-decoration: none; font-size: 18px; font-weight: 500; border-radius: 5px;">Get Started</a>
+                                                <a href=https://booksellingstore.netlify.app/user/verify/${token}" style="display: inline-block; padding: 15px 30px; background-color: #26a69a; color: #ffffff; text-decoration: none; font-size: 18px; font-weight: 500; border-radius: 5px;">Get Started</a>
                                             </td>
                                         </tr>
                                     </table>
@@ -350,8 +352,8 @@ async function placeOrder(req, res) {
 async function getOrders(req, res) {
     try {
         const orders = await Order.find({ buyerId: req.user._id }).populate({
-            path: 'adId',
-            model: 'Ads'
+            path: "adId",
+            model: "Ads",
         });
         return res.status(200).json({
             message: "Orders fetched",
@@ -367,8 +369,8 @@ async function getOrder(req, res) {
     const orderId = req.params.orderId;
     try {
         const order = await Order.findById(orderId).populate({
-            path: 'adId',
-            model: 'Ads'
+            path: "adId",
+            model: "Ads",
         });
 
         let id1 = req.user._id.toString();
@@ -405,10 +407,21 @@ async function checkout(req, res) {
 
 async function paymentVerification(req, res) {
     try {
-        const { name, email, contact, streetAddress, city, state, pincode, books } = req.body;
-        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+        const {
+            name,
+            email,
+            contact,
+            streetAddress,
+            city,
+            state,
+            pincode,
+            books,
+        } = req.body;
+        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+            req.body;
         const body = razorpay_order_id + "|" + razorpay_payment_id;
-        const adId = [], sellerId = [];
+        const adId = [],
+            sellerId = [];
         const user = await User.findById(req.user._id);
         for (let book of books) {
             adId.push(book.id);
@@ -441,7 +454,7 @@ async function paymentVerification(req, res) {
             user.shippingAddress.city = city;
             user.shippingAddress.state = state;
             user.shippingAddress.pincode = pincode;
-            for(let ads of adId){
+            for (let ads of adId) {
                 const ad = await Ads.findById(ads);
                 ad.sold = true;
                 user.cart.pull(ads);
@@ -452,7 +465,7 @@ async function paymentVerification(req, res) {
             // res.redirect(
             //     "http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}"
             // );
-            return res.status(200).json({success: true});
+            return res.status(200).json({ success: true });
         } else {
             res.status(200).json({
                 success: false,
@@ -481,7 +494,7 @@ async function editAdImages(req, res) {
             imagesPath.push(image.path.replace("\\", "/"));
         });
 
-        for (let image of ad.images){
+        for (let image of ad.images) {
             await clearImage(image);
         }
 
