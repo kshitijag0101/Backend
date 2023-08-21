@@ -110,7 +110,7 @@ async function userRegister(req, res) {
                                     <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
                                         <tr>
                                             <td align="center" style="padding: 15px; background-color: #26a69a;">
-                                                <a href=https://booksellingstore.netlify.app/user/verify/${token}" style="display: inline-block; padding: 15px 30px; background-color: #26a69a; color: #ffffff; text-decoration: none; font-size: 18px; font-weight: 500; border-radius: 5px;">Get Started</a>
+                                                <a href=https://booksellingstore.netlify.app/user/verify/${token} style="display: inline-block; padding: 15px 30px; background-color: #26a69a; color: #ffffff; text-decoration: none; font-size: 18px; font-weight: 500; border-radius: 5px;">Get Started</a>
                                             </td>
                                         </tr>
                                     </table>
